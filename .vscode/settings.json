@@ -1,6 +1,5 @@
 {
     "workbench.colorTheme": "Visual Studio 2019 Light",
-    "xmlTools.enforcePrettySelfClosingTagOnFormat": true,
     "editor.minimap.enabled": false,
     "terminal.integrated.profiles.windows": {
         "PowerShell": {
