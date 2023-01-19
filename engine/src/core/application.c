@@ -4,6 +4,7 @@
 #include "logger.h"
 
 #include "platform/platform.h"
+#include "core/kmemory.h"
 
 typedef struct application_state {
     game* game_inst;
@@ -64,13 +65,15 @@ b8 application_create(game* game_inst) {
 }
 
 b8 application_run() {
+    KINFO(get_memory_usage_str());
+
     while (app_state.is_running) {
         
-        if(!platform_pump_messages(&app_state.platform)) {
+        if (!platform_pump_messages(&app_state.platform)) {
             app_state.is_running = FALSE;
         }
 
-        if(!app_state.is_suspended) {
+        if (!app_state.is_suspended) {
             if(!app_state.game_inst->update(app_state.game_inst, (f32)0)) {
                 KFATAL("Game updated failed, shutting down.");
                 app_state.is_running = FALSE;
@@ -79,7 +82,7 @@ b8 application_run() {
         }
 
         // Call the game's render routine.
-        if(!app_state.game_inst->render(app_state.game_inst, (f32)0)) {
+        if (!app_state.game_inst->render(app_state.game_inst, (f32)0)) {
             KFATAL("Game render failed, shutting down.");
             app_state.is_running = FALSE;
             break;
